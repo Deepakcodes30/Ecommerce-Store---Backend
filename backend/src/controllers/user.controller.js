@@ -236,6 +236,10 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 const changeCurrentPassword = asyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body;
 
+  if (oldPassword === newPassword) {
+    throw new apiError(400, "New password must be different");
+  }
+
   const user = await User.findById(req.user?._id);
   const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
 
@@ -301,7 +305,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     throw new apiError(400, "User not found");
   }
 
-  if (user.avatar?.url) {
+  if (user.avatar) {
     await deleteFromCloudinary(user.avatar);
   }
 

@@ -2,6 +2,7 @@ import { apiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.model.js";
+import isAdminUser from "../utils/isAdminUser.js";
 
 export const verifyJWT = asyncHandler(async (req, res, next) => {
   //basically we are accessing the accessToken from either cookies where we added the tokens or from http header which holds a value called Authorization which holds Bearer <accesstoken> in which we are replacing the Bearer term with empty string so that we are left with just the accessToken
@@ -32,7 +33,10 @@ export const verifyJWT = asyncHandler(async (req, res, next) => {
     }
 
     //creating new user object with updated data
-    req.user = user;
+    req.user = {
+      ...user.toObject(),
+      isAdmin: isAdminUser(user),
+    };
     return next();
   } catch (error) {
     throw new apiError(401, error?.message || "Invalid Access Token");

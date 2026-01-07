@@ -37,17 +37,12 @@ const userSchema = new Schema(
     refreshToken: {
       type: String,
     },
-    role: {
-      type: String,
-      enum: ["USER", "ADMIN"],
-      default: "USER",
-    },
   },
   { timestamps: true }
 );
 
 //this is the encrypt the password before saving the password in database
-userSchema.pre("save", async function () {
+userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return;
   }
@@ -64,7 +59,7 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 };
 
 //saving the phone number correctly
-userSchema.pre("save", function (next) {
+userSchema.pre("validate", function (next) {
   if (this.phoneNumber && !this.phoneNumber.startsWith("+91")) {
     this.phoneNumber = "+91" + this.phoneNumber;
   }
