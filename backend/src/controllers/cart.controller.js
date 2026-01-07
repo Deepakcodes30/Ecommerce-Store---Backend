@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import { Cart } from "../models/cart.model.js";
 import { Product } from "../models/product.model.js";
 
-export const getCart = asyncHandler(async (req, res) => {
+const getCart = asyncHandler(async (req, res) => {
   const cart = await Cart.findOne({ user: req.user._id }).populate(
     "items.product",
     "title slug"
@@ -72,7 +72,7 @@ const addToCart = asyncHandler(async (req, res) => {
   return res.status(200).json(new apiResponse(200, cart, "Item added to cart"));
 });
 
-export const updateCartItem = asyncHandler(async (req, res) => {
+const updateCartItem = asyncHandler(async (req, res) => {
   const { itemId, quantity } = req.body;
 
   if (quantity < 1) {
@@ -91,6 +91,11 @@ export const updateCartItem = asyncHandler(async (req, res) => {
 
   item.quantity = quantity;
 
+  /*this is the reduce function syntax for my reference  
+  array.reduce((accumulator, currentItem) => {
+    return newAccumulatorValue;
+  }, initialValue);*/
+
   cart.totalItems = cart.items.reduce((sum, item) => sum + item.quantity, 0);
 
   cart.totalCartValue = cart.items.reduce(
@@ -103,7 +108,7 @@ export const updateCartItem = asyncHandler(async (req, res) => {
   return res.status(200).json(new apiResponse(200, cart, "Cart updated"));
 });
 
-export const removeFromCart = asyncHandler(async (req, res) => {
+const removeCartItem = asyncHandler(async (req, res) => {
   const { itemId } = req.params;
 
   const cart = await Cart.findOne({ user: req.user._id });
@@ -127,7 +132,7 @@ export const removeFromCart = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, cart, "Item removed from cart"));
 });
 
-export const clearCart = asyncHandler(async (req, res) => {
+const clearCart = asyncHandler(async (req, res) => {
   const cart = await Cart.findOne({ user: req.user._id });
 
   if (!cart) {
