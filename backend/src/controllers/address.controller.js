@@ -105,6 +105,7 @@ const updateAddress = asyncHandler(async (req, res) => {
     throw new apiError(400, "All required fields must be filled");
   }
 
+  //we can also update by findbyidandupdate method
   const address = await Address.findOne({
     _id: addressId,
     user: req.user._id,
