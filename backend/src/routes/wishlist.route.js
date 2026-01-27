@@ -9,7 +9,7 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.get("/my-wishlist", verifyJWT, getMyWishlist);
+router.get("/get-my-wishlist", verifyJWT, getMyWishlist);
 
 router.post("/:productId/add-to-wishlist", verifyJWT, addToWishlist);
 
