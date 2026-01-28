@@ -9,7 +9,7 @@ import {
   getProductBySlug,
 } from "../controllers/product.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
-import { isAdmin } from "../middlewares/admin.middleware.js";
+import { isAdmin } from "../middlewares/isAdmin.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router();

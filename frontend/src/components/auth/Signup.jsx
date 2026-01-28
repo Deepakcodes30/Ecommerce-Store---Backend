@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import Button from "./Button.jsx";
-import Input from "./Input.jsx";
+import Button from "./common/Button.jsx";
+import Input from "./common/Input.jsx";
 import { registerUser } from "../services/users.api.js";
 
 function Signup() {

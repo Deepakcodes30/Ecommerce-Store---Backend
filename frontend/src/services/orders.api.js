@@ -11,7 +11,7 @@ async function createOrder({ orderItems, shippingAddress, paymentMethod }) {
       shippingAddress,
       paymentMethod,
     });
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -19,14 +19,14 @@ async function getOrderById(orderId) {
   if (!orderId) throw new Error("orderId is required");
   return fetchWrapper(async () => {
     const res = await api.get(`/orders/${orderId}/get-order-by-id`);
-    return res.data;
+    return res.data.data;
   });
 }
 
 async function getMyOrders() {
   return fetchWrapper(async () => {
     const res = await api.get("/orders/get-my-orders");
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -34,14 +34,14 @@ async function cancelOrder(orderId) {
   if (!orderId) throw new Error("orderId is required");
   return fetchWrapper(async () => {
     const res = await api.patch(`/orders/${orderId}/cancel-order`);
-    return res.data;
+    return res.data.data;
   });
 }
 
 async function getAllOrders() {
   return fetchWrapper(async () => {
     const res = await api.get("/orders/get-all-orders");
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -52,7 +52,7 @@ async function updateOrderStatus(orderId, status) {
       `/orders/${orderId}/update-order-status`,
       status
     );
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -60,7 +60,7 @@ async function markedAsDelivered(orderId) {
   if (!orderId) throw new Error("orderId is required");
   return fetchWrapper(async () => {
     const res = await api.patch(`/orders/${orderId}/marked-as-delivered`);
-    return res.data;
+    return res.data.data;
   });
 }
 

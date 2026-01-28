@@ -8,7 +8,7 @@ async function createCategory({ name, slug, description }) {
       slug,
       description,
     });
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -19,7 +19,7 @@ async function updateCategory(categoryId, payload) {
       `/categories/${categoryId}/update-category`,
       payload
     );
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -27,7 +27,7 @@ async function deleteCategory(categoryId) {
   if (!categoryId) throw new Error("categoryId is required");
   return fetchWrapper(async () => {
     const res = await api.delete(`/categories/${categoryId}/delete-category`);
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -37,14 +37,14 @@ async function toggleCategoryStatus(categoryId) {
     const res = await api.patch(
       `/categories/${categoryId}/toggle-category-status`
     );
-    return res.data;
+    return res.data.data;
   });
 }
 
 async function getActiveCategories() {
   return fetchWrapper(async () => {
     const res = await api.get("/categories/get-active-categories");
-    return res.data;
+    return res.data.data;
   });
 }
 

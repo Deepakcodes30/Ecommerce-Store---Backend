@@ -1,4 +1,4 @@
-export const adminOnly = (req, res, next) => {
+export const isAdmin = (req, res, next) => {
   if (!req.user) {
     throw new apiError(401, "Authentication required");
   }

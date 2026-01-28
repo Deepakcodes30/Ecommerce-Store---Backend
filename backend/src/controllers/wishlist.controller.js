@@ -60,7 +60,7 @@ const removeFromWishlist = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, wishlist, "Removed from wishlist"));
 });
 
-const getWishlist = asyncHandler(async (req, res) => {
+const getMyWishlist = asyncHandler(async (req, res) => {
   const wishlist = await Wishlist.findOne({ user: req.user._id }).populate(
     "products",
     "title slug images discountedPrice"
@@ -89,4 +89,4 @@ const clearWishlist = asyncHandler(async (req, res) => {
     .json(new apiResponse(200, wishlist, "Wishlist cleared"));
 });
 
-export { addToWishlist, removeFromWishlist, getWishlist, clearWishlist };
+export { addToWishlist, removeFromWishlist, getMyWishlist, clearWishlist };

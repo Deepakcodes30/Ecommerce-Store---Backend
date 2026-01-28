@@ -27,21 +27,21 @@ async function createAddress({
       addressType,
       isDefault,
     });
-    return res.data;
+    return res.data.data;
   });
 }
 
 async function getAddress(addressId) {
   return fetchWrapper(async () => {
     const res = await api.get(`/addresses/${addressId}/get-address`);
-    return res.data;
+    return res.data.data;
   });
 }
 
 async function getUserAddresses() {
   return fetchWrapper(async () => {
     const res = await api.get("/addresses/get-user-addresses");
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -53,7 +53,7 @@ async function updateAddress(addressId, payload) {
       `/addresses/${addressId}/update-address`,
       payload
     );
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -62,7 +62,7 @@ async function deleteAddress(addressId) {
 
   return fetchWrapper(async () => {
     const res = await api.delete(`/addresses/${addressId}/delete-address`);
-    return res.data;
+    return res.data.data;
   });
 }
 

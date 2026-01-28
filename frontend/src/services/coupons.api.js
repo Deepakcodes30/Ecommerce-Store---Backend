@@ -15,7 +15,7 @@ async function createCoupon({
       minOrderValue,
       expiresAt,
     });
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -24,7 +24,7 @@ async function updateCoupon(couponId, payload) {
 
   return fetchWrapper(async () => {
     const res = await api.put(`/coupons/${couponId}/update-coupon`, payload);
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -32,7 +32,7 @@ async function deleteCoupon(couponId) {
   if (!couponId) throw new Error("couponId is required");
   return fetchWrapper(async () => {
     const res = await api.delete(`/coupons/${couponId}/delete-coupon`);
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -40,14 +40,14 @@ async function toggleCouponStatus(couponId) {
   if (!couponId) throw new Error("couponId is required");
   return fetchWrapper(async () => {
     const res = await api.patch(`/coupons/${couponId}/toggle-coupon-status`);
-    return res.data;
+    return res.data.data;
   });
 }
 
 async function getAllCoupons() {
   return fetchWrapper(async () => {
     const res = await api.get("/coupons/get-all-coupons");
-    return res.data;
+    return res.data.data;
   });
 }
 
@@ -58,7 +58,7 @@ async function validateCoupon({ code, orderValue }) {
       code,
       orderValue,
     });
-    return res.data;
+    return res.data.data;
   });
 }
 

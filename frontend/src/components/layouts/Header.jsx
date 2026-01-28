@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { getActiveCategories } from "../services/categories.api.js";
+import { getActiveCategories } from "../../services/categories.api.js";
 import { getCurrentUser, logoutUser } from "@/services/users.api.js";
 
 function Header() {
