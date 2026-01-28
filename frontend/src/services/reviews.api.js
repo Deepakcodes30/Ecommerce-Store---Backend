@@ -29,4 +29,4 @@ async function getProductReviews(productId) {
   });
 }
 
-export const reviewServices = { addReview, deleteReview, getProductReviews };
+export { addReview, deleteReview, getProductReviews };

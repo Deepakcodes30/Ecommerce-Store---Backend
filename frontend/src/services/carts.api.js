@@ -41,10 +41,4 @@ async function clearCart() {
   });
 }
 
-export const cartServices = {
-  getCart,
-  addToCart,
-  updateCartItem,
-  removeCartItem,
-  clearCart,
-};
+export { getCart, addToCart, updateCartItem, removeCartItem, clearCart };

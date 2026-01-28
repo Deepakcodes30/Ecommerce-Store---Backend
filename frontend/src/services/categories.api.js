@@ -1,4 +1,5 @@
 import api from "./api";
+import { fetchWrapper } from "./fetchWrapper";
 
 async function createCategory({ name, slug, description }) {
   return fetchWrapper(async () => {
@@ -47,7 +48,7 @@ async function getActiveCategories() {
   });
 }
 
-export const categoryServices = {
+export {
   createCategory,
   updateCategory,
   deleteCategory,

@@ -59,7 +59,7 @@ async function getProductBySlug(slug) {
   });
 }
 
-export const productServices = {
+export {
   createProduct,
   updateProduct,
   deleteProduct,

@@ -64,7 +64,7 @@ async function markedAsDelivered(orderId) {
   });
 }
 
-export const orderServices = {
+export {
   createOrder,
   getOrderById,
   getMyOrders,

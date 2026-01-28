@@ -66,7 +66,7 @@ async function deleteAddress(addressId) {
   });
 }
 
-export const addressService = {
+export {
   createAddress,
   getAddress,
   getUserAddresses,

@@ -62,7 +62,7 @@ async function validateCoupon({ code, orderValue }) {
   });
 }
 
-export const couponServices = {
+export {
   createCoupon,
   updateCoupon,
   deleteCoupon,

@@ -1,0 +1,23 @@
+import React, { useId } from "react";
+
+const Input = React.forwardRef(function Input(
+  { label, type = "text", className = "", value = "", ...props },
+  ref
+) {
+  const id = useId();
+  return (
+    <div>
+      {label && <label htmlFor={id}>{label}</label>}
+      <input
+        type={type}
+        value={value}
+        className={className}
+        {...props}
+        ref={ref}
+        id={id}
+      />
+    </div>
+  );
+});
+
+export default Input;

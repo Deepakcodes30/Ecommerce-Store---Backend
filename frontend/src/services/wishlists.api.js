@@ -33,9 +33,4 @@ async function clearWishlist() {
   });
 }
 
-export const wishlistServices = {
-  addToWishlist,
-  removeFromWishlist,
-  getMyWishlist,
-  clearWishlist,
-};
+export { addToWishlist, removeFromWishlist, getMyWishlist, clearWishlist };

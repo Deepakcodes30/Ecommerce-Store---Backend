@@ -1,14 +1,9 @@
 import api from "./api";
 import { fetchWrapper } from "./fetchWrapper";
 
-async function registerUser({ fullName, phoneNumber, password, email }) {
+async function registerUser(formData) {
   return fetchWrapper(async () => {
-    const res = await api.post("/users/register-user", {
-      fullName,
-      phoneNumber,
-      password,
-      email,
-    });
+    const res = await api.post("/users/register-user", formData);
     return res.data;
   });
 }
@@ -69,7 +64,7 @@ async function updateUserAvatar(formData) {
   });
 }
 
-export const userServices = {
+export {
   registerUser,
   loginUser,
   logoutUser,
