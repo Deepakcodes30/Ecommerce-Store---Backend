@@ -1,4 +1,4 @@
-import Signup from "../../../components/Signup.jsx";
+import Signup from "../../../components/auth/Signup.jsx";
 import React from "react";
 
 function page() {

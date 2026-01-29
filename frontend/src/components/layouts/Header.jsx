@@ -10,17 +10,16 @@ function Header() {
   const [user, setUser] = useState(null);
   const [authChecked, setAuthChecked] = useState(false);
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  // Wait for component to mount on client
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await getActiveCategories();
-      setCategories(data || []);
+      try {
+        const data = await getActiveCategories();
+        setCategories(data || []);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        setCategories([]);
+      }
     };
     fetchCategories();
   }, []);
@@ -30,7 +29,8 @@ function Header() {
       try {
         const loggedInUser = await getCurrentUser();
         setUser(loggedInUser ?? null);
-      } catch {
+      } catch (error) {
+        console.error("Error fetching user:", error);
         setUser(null);
       } finally {
         setAuthChecked(true);
@@ -40,41 +40,14 @@ function Header() {
   }, []);
 
   const handleLogout = async () => {
-    await logoutUser();
-    setUser(null);
-    setOpen(false);
+    try {
+      await logoutUser();
+      setUser(null);
+      setOpen(false);
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
-
-  // Don't render profile button until mounted
-  if (!mounted) {
-    return (
-      <header className="flex justify-between items-center px-6 py-4 border-b">
-        <Link href="/" className="font-bold text-xl">
-          Logo
-        </Link>
-
-        <ul className="flex gap-4">
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          {categories.map((category) => (
-            <li key={category._id}>
-              <Link href={`/category/${category.slug}`}>{category.name}</Link>
-            </li>
-          ))}
-          <li>
-            <Link href="/our-story">Our Story</Link>
-          </li>
-        </ul>
-
-        <div className="relative flex gap-4 items-center">
-          <span>Search</span>
-          <button disabled>Profile</button>
-          <span>Cart</span>
-        </div>
-      </header>
-    );
-  }
 
   return (
     <header className="flex justify-between items-center px-6 py-4 border-b">
@@ -108,14 +81,34 @@ function Header() {
         <button onClick={() => setOpen((prev) => !prev)}>Profile</button>
 
         {open && authChecked && (
-          <div className="absolute right-0 top-10 bg-white border shadow p-4 rounded z-50">
+          <div className="absolute right-0 top-10 bg-white border shadow p-4 rounded z-50 min-w-[150px]">
             {user ? (
-              <div className="flex flex-col gap-2">
-                <Link href="/profile" onClick={() => setOpen(false)}>
-                  Profile
-                </Link>
-                <button onClick={handleLogout}>Logout</button>
-              </div>
+              user.isAdmin ? (
+                <div className="flex flex-col gap-2">
+                  <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                  <hr />
+                  <Link href="/admin" onClick={() => setOpen(false)}>
+                    Admin Dashboard
+                  </Link>
+                  <Link href="/profile" onClick={() => setOpen(false)}>
+                    Profile
+                  </Link>
+                  <button onClick={handleLogout} className="text-left">
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                  <hr />
+                  <Link href="/profile" onClick={() => setOpen(false)}>
+                    Profile
+                  </Link>
+                  <button onClick={handleLogout} className="text-left">
+                    Logout
+                  </button>
+                </div>
+              )
             ) : (
               <div className="flex flex-col gap-2">
                 <Link href="/login" onClick={() => setOpen(false)}>

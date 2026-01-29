@@ -33,6 +33,8 @@ const userSchema = new Schema(
     },
     avatar: {
       type: String,
+      required: false,
+      default: null,
     },
     refreshToken: {
       type: String,
@@ -59,11 +61,10 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 };
 
 //saving the phone number correctly
-userSchema.pre("validate", function (next) {
+userSchema.pre("validate", function () {
   if (this.phoneNumber && !this.phoneNumber.startsWith("+91")) {
     this.phoneNumber = "+91" + this.phoneNumber;
   }
-  next();
 });
 
 //setup methods for JWT generation for access and refresh

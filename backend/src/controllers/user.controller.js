@@ -50,8 +50,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new apiError(409, "User with email or username already exists");
   }
 
-  // const avatarLocalPath = req.files?.avatar[0]?.path;
-
+  // Handle avatar - make it optional
   let avatarLocalPath;
   if (
     req.files &&
@@ -60,32 +59,20 @@ const registerUser = asyncHandler(async (req, res) => {
   ) {
     avatarLocalPath = req.files.avatar[0].path;
   }
-  /*multer uplaods every file in the form of an array even if we upload only one file
-   req.files = {
-     coverImage: [
-       {
-         fieldname: "coverImage",
-         originalname: "photo.png",
-         filename: "1234.png",
-         path: "/uploads/1234.png", // <-- IMPORTANT
-         mimetype: "image/png",
-       },
-     ],
-   }; */
 
-  if (!avatarLocalPath) {
-    throw new apiError(400, "Avatar image is required");
+  // Only upload if avatar is provided
+  let avatarUrl = null;
+  if (avatarLocalPath) {
+    const avatar = await uploadOnCloudinary(avatarLocalPath);
+    if (avatar) {
+      avatarUrl = avatar.url;
+    }
   }
 
-  const avatar = await uploadOnCloudinary(avatarLocalPath);
-
-  if (!avatar) {
-    throw new apiError(400, "Avatar is required");
-  }
-
+  // Create user with or without avatar
   const user = await User.create({
     fullName,
-    avatar: avatar.url,
+    avatar: avatarUrl, // Can be null if not provided
     email,
     password,
     phoneNumber,
