@@ -1,4 +1,5 @@
 import api from "./api";
+import { fetchWrapper } from "./fetchWrapper";
 
 async function createProduct(formData) {
   return fetchWrapper(async () => {

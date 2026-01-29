@@ -42,9 +42,11 @@ function AdminNavbar() {
             <ul className="ml-4 mt-2 flex flex-col gap-1">
               <li>
                 <Link
-                  href="/admin/products/add"
+                  href="/admin/products/add-product"
                   className={`block p-2 rounded ${
-                    isActive("/admin/products/add") ? "bg-black text-white" : ""
+                    isActive("/admin/products/add-product")
+                      ? "bg-black text-white"
+                      : ""
                   }`}>
                   Add Product
                 </Link>
@@ -52,9 +54,11 @@ function AdminNavbar() {
 
               <li>
                 <Link
-                  href="/admin/products"
+                  href="/admin/products/all-products"
                   className={`block p-2 rounded ${
-                    isActive("/admin/products") ? "bg-black text-white" : ""
+                    isActive("/admin/products/all-products")
+                      ? "bg-black text-white"
+                      : ""
                   }`}>
                   All Products
                 </Link>

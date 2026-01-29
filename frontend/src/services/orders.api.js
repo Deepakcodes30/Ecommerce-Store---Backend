@@ -1,5 +1,5 @@
 import api from "./api";
-import { fetchWrapper } from "./fetchWrapper";
+import { fetchWrapper } from "./fetchWrapper.js";
 
 async function createOrder({ orderItems, shippingAddress, paymentMethod }) {
   if (!orderItems?.length) throw new Error("orderItems are required");

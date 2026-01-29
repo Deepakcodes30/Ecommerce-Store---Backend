@@ -19,6 +19,7 @@ const createProduct = asyncHandler(async (req, res) => {
     sku,
     variants = [],
     tags = [],
+    category,
   } = req.body;
 
   if (!title || !slug || !description || !mrp || !sku) {
@@ -59,6 +60,7 @@ const createProduct = asyncHandler(async (req, res) => {
     discountedPrice,
     stock,
     sku,
+    category,
     variants,
     tags,
     images: uploadedImages,
