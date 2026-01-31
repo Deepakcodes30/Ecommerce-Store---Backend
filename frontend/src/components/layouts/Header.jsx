@@ -11,16 +11,18 @@ function Header() {
   const [authChecked, setAuthChecked] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const fetchCategories = async () => {
+    try {
+      const data = await getActiveCategories();
+      setCategories(data || []);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      setCategories([]);
+    }
+  };
+
+  //whenever there is a change in the pathname, the category will be fetched
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const data = await getActiveCategories();
-        setCategories(data || []);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-        setCategories([]);
-      }
-    };
     fetchCategories();
   }, []);
 

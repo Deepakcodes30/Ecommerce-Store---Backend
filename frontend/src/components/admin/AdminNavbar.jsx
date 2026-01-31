@@ -69,24 +69,74 @@ function AdminNavbar() {
 
         {/* Categories */}
         <li>
-          <Link
-            href="/admin/categories"
-            className={`block p-2 rounded ${
-              isActive("/admin/categories") ? "bg-black text-white" : ""
-            }`}>
-            Categories
-          </Link>
+          <button
+            onClick={() => toggleMenu("categories")}
+            className="w-full text-left p-2 rounded hover:bg-gray-200">
+            Category
+          </button>
+
+          {openMenu === "categories" && (
+            <ul className="ml-4 mt-2 flex flex-col gap-1">
+              <li>
+                <Link
+                  href="/admin/categories/add-category"
+                  className={`block p-2 rounded ${
+                    isActive("/admin/categories/add-category")
+                      ? "bg-black text-white"
+                      : ""
+                  }`}>
+                  Add Category
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/admin/categories/all-categories"
+                  className={`block p-2 rounded ${
+                    isActive("/admin/categories/all-categories")
+                      ? "bg-black text-white"
+                      : ""
+                  }`}>
+                  All Categories
+                </Link>
+              </li>
+            </ul>
+          )}
         </li>
 
         {/* Coupons */}
         <li>
-          <Link
-            href="/admin/coupons"
-            className={`block p-2 rounded ${
-              isActive("/admin/coupons") ? "bg-black text-white" : ""
-            }`}>
-            Coupons
-          </Link>
+          <button
+            onClick={() => toggleMenu("coupons")}
+            className="w-full text-left p-2 rounded hover:bg-gray-200">
+            Coupon
+          </button>
+
+          {openMenu === "coupons" && (
+            <ul className="ml-4 mt-2 flex flex-col gap-1">
+              <li>
+                <Link
+                  href="/admin/coupons/add-coupon"
+                  className={`block p-2 rounded ${
+                    isActive("/admin/coupons/add-coupon")
+                      ? "bg-black text-white"
+                      : ""
+                  }`}>
+                  Add Coupon
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/admin/coupons/all-coupons"
+                  className={`block p-2 rounded ${
+                    isActive("/admin/coupons/all-coupons")
+                      ? "bg-black text-white"
+                      : ""
+                  }`}>
+                  All Coupons
+                </Link>
+              </li>
+            </ul>
+          )}
         </li>
       </ul>
     </aside>

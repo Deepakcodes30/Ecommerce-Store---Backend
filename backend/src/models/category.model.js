@@ -28,10 +28,10 @@ const categorySchema = new Schema(
 );
 categorySchema.index({ isActive: 1 });
 
-categorySchema.pre("save", function (next) {
-  if (!this.isModified("name")) return next();
-  this.slug = slugify(this.name, { lower: true });
-  next();
+categorySchema.pre("validate", function () {
+  if (this.name && !this.slug) {
+    this.slug = slugify(this.name, { lower: true });
+  }
 });
 
 export const Category = mongoose.model("Category", categorySchema);
